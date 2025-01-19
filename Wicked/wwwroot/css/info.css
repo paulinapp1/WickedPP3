@@ -1,0 +1,46 @@
+﻿.text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+    font-size:18px;
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 30px;
+    text-align: center;
+    width: 60rem;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+.button {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose-character {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 20vw;
+    height: 5vh;
+    text-align: center;
+    border-radius: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h3{
+    font-size: 30px;
+}

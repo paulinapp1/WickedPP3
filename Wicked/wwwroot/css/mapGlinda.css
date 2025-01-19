@@ -1,0 +1,74 @@
+﻿body {
+    background-image: url("../Images/GlindaBackground.svg");
+}
+
+.map-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    gap: 0;
+    justify-content: center;
+    min-width: max-content;
+    align-items: center;
+}
+
+.empty {
+    background-color: white; 
+    padding: 20px; 
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.tree, .follower, .creature, .mainC {
+    background-color: white; 
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width:40px;
+}
+
+.tree img, .follower img, .creature img, .mainC img {
+    width: auto;
+    height: 40px; 
+}
+
+.grid > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap: 1rem;
+    float: left;
+    width: 25%;
+    align-items:center;
+}
+
+.grid-container {
+    display: flex;
+    float: right;
+    width: 70%;
+}
+
+.buttons button {
+    text-align: center;
+    padding: 30px;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -17,28 +17,6 @@
 
         public Level difficultyLevel;
         private bool isGameOver;
-        public DateTime startTime;
-        public TimeSpan timeLimit;
-
-        public TimeSpan GetRemainingTime()
-        {
- 
-            if (startTime == default)
-            {
-                return TimeSpan.Zero;
-            }
-
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-
-            TimeSpan remainingTime = timeLimit - elapsedTime;
-
-            if (remainingTime < TimeSpan.Zero)
-            {
-                remainingTime = TimeSpan.Zero;
-            }
-
-            return remainingTime;
-        }
 
 
         public GameInstance(Level level)
@@ -52,15 +30,11 @@
             difficultyLevel = level;
         }
 
-
-
-
         private bool HasGainedFollower()
         { 
 
             return TakenSpots.ContainsKey(currentHead) && TakenSpots[currentHead] == "creature";
         }
-
 
         private Point GetNextHeadPosition()
         {
@@ -88,7 +62,6 @@
             }
         }
 
-
         private void UpdateMap()
         {
             Point newCreaturePosition = Point.GeneratePoint(map);
@@ -105,7 +78,8 @@
         private bool IsCoordinateMinus(Point position) => position.X < 0 || position.Y < 0;
 
         private bool IsCollisionWithBody(Point position) =>
-            TakenSpots.ContainsKey(position) && TakenSpots[position] == "mainC";
+            TakenSpots.ContainsKey(position) && TakenSpots[position] == "mainC" || 
+            TakenSpots.ContainsKey(position) && TakenSpots[position] == "follower";
 
 
         private bool IsCollisionWithWall(Point position) =>
@@ -118,28 +92,16 @@
             return isGameOver;
         }
 
-
-        private bool IsTimeUp()
-        {
-            return DateTime.Now - startTime >= timeLimit;
-        }
-
-
         private bool CheckCollisions()
         {
             if (IsCollisionWithTree(currentHead) || IsCollisionWithWall(currentHead) || 
-                IsCollisionWithBody(currentHead) || IsTimeUp() || 
-                IsCoordinateMinus(currentHead))
+                IsCollisionWithBody(currentHead) || IsCoordinateMinus(currentHead))
             {
                 isGameOver = true;
                 return true;
             }
             return false;
         }
-
-
-   
-
         private void UpdateVisuals()
         {
 
@@ -154,7 +116,7 @@
                 }
                 else
                 {
-                    TakenSpots[segment] = "creature";
+                    TakenSpots[segment] = "follower";
                 }
             }
         }
@@ -195,33 +157,12 @@
             }
 
             UpdateGameState(newHead);
-        }
-       
-
-
-        private void InitializeGameState(Levels difficulty)
-        {
-
-            startTime = DateTime.Now;
-            timeLimit = difficulty switch
-            {
-                Levels.Easy => TimeSpan.FromMinutes(15),
-                Levels.Medium => TimeSpan.FromMinutes(10),
-                Levels.Hard => TimeSpan.FromMinutes(5),
-                Levels.Extreme => TimeSpan.FromMinutes(1),
-                _ => TimeSpan.FromMinutes(15)
-            };
-        }
+        }  
 
         public void StartGame(Levels difficulty)
         {
-
-
             InitializeMap(difficulty);
             InitializeInterrupts();
-            InitializeGameState(difficulty);
-
-
         }
 
         public void InitializeInterrupts()

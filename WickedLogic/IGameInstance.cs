@@ -10,7 +10,6 @@ namespace WickedLogic
     {
         void InitializeInterrupts();
         void StartGame(Levels difficulty);
-        TimeSpan GetRemainingTime();
         bool IsGameOver();
         void Move(Direction direction);
         int Score { get; }

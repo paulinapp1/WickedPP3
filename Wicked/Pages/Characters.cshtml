@@ -1,0 +1,30 @@
+﻿@page
+@model WickedGame.Pages.CharactersModel
+@{
+    ViewData["Title"] = "Characters page";
+    ViewData["CssFile"] = "characters.css";
+}
+
+<div class="title">
+    <h1>Who do you want to be today?</h1>
+</div>
+<div class="content">
+    <div class="characters">
+        <div class="glinda">
+            <a asp-area="" asp-page="/GlindaDifficulty">
+                <img src="~/Images/Glinda.png" alt="Glinda photo" />
+            </a>
+            <div class="glinda-button">
+                <a asp-area="" asp-page="/GlindaDifficulty">Glinda</a>
+            </div>
+        </div>
+        <div class="elphaba">
+            <a asp-area="" asp-page="/ElphabaDifficulty">
+                <img src="~/Images/Elphaba.png" alt="Ephaba photo" />
+            </a>
+            <div class="elphaba-button">
+                <a asp-area="" asp-page="/ElphabaDifficulty">Elphaba</a>
+            </div>
+        </div>
+    </div>
+</div>

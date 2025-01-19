@@ -9,7 +9,6 @@ namespace WickedGame.Pages.Game
     public class GameElphabaModel : PageModel
     {
         private readonly GameService gameService;
-
         public List<List<string>> MapGrid { get; private set; }
         public TimeSpan RemainingTime { get; private set; }
         [BindProperty]
@@ -24,7 +23,6 @@ namespace WickedGame.Pages.Game
         {
             this.gameService = gameService;
         }
-
         public void OnGet()
         {
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
@@ -33,9 +31,7 @@ namespace WickedGame.Pages.Game
             {
                 Console.WriteLine(string.Join(", ", row));
             }
-            RemainingTime = gameService.GetRemainingTime();
         }
-
         public IActionResult OnPostMoveUp()
         {
             gameService.Move(Direction.Up);
@@ -50,7 +46,6 @@ namespace WickedGame.Pages.Game
 
             return Page();
         }
-
         public IActionResult OnPostMoveDown()
         {
             if (gameService.IsGameOver())
@@ -64,7 +59,6 @@ namespace WickedGame.Pages.Game
 
             return Page();
         }
-
         public IActionResult OnPostMoveLeft()
         {
             gameService.Move(Direction.Left);
@@ -79,7 +73,6 @@ namespace WickedGame.Pages.Game
 
             return Page();
         }
-
         public IActionResult OnPostMoveRight()
         {
             gameService.Move(Direction.Right);
@@ -95,6 +88,5 @@ namespace WickedGame.Pages.Game
             return Page();
 
         }
-       
     }
 }

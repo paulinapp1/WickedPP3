@@ -20,11 +20,6 @@ namespace WickedGame.Services
             gameInstance.StartGame(difficulty);
             Console.WriteLine("Game initialized successfully!");
         }
-        public TimeSpan GetRemainingTime()
-        {
-            return gameInstance.GetRemainingTime();
-            
-        }
 
         public bool IsGameOver()
         {
@@ -36,7 +31,6 @@ namespace WickedGame.Services
             
             gameInstance.Move(direction);
         }
-
 
         public List<List<string>> GetMapGrid(Levels selectedDifficulty)
         {

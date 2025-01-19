@@ -1,0 +1,13 @@
+﻿@page
+@model WickedGame.Pages.GameOverModel
+@{
+    ViewData["Title"] = "Game Over";
+    ViewData["CssFile"] = "gameOver.css";
+}
+
+<h1>GAME OVER!</h1>
+<div class="buttons">
+    <div class="choose-character">
+        <a asp-area="" asp-page="/Characters">Try again</a>
+    </div>
+</div>

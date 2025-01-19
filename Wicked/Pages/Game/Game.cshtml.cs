@@ -9,7 +9,6 @@ namespace WickedGame.Pages.Game
     public class GameModel : PageModel
     {
         private readonly GameService gameService;
-
         public List<List<string>> MapGrid { get; private set; }
         public TimeSpan RemainingTime { get; private set; }
         [BindProperty]
@@ -31,7 +30,6 @@ namespace WickedGame.Pages.Game
         public void OnGet()
         {
             LoadMapGrid();
-            LoadRemainingTime();
         }
 
         // Method to load the map grid based on the selected difficulty
@@ -44,28 +42,20 @@ namespace WickedGame.Pages.Game
                 Console.WriteLine(string.Join(", ", row));
             }
         }
-
-        // Method to load the remaining time from the game service
-        private void LoadRemainingTime()
-        {
-            RemainingTime = gameService.GetRemainingTime();
-        }
-    
-
-    public IActionResult OnPostMoveUp()
-        {
-            gameService.Move(Direction.Up);
-       
-            if (gameService.IsGameOver())
+ 
+        public IActionResult OnPostMoveUp()
             {
-                Console.WriteLine("Game Over!");
-                return RedirectToPage("/GameOver");
-            }
+                gameService.Move(Direction.Up);
+       
+                if (gameService.IsGameOver())
+                {
+                    Console.WriteLine("Game Over!");
+                    return RedirectToPage("/GameOver");
+                }
 
-             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
-            RemainingTime = gameService.GetRemainingTime();
-            return Page();
-        }
+                 MapGrid = gameService.GetMapGrid(SelectedDifficulty);
+                 return Page();
+            }
 
         public IActionResult OnPostMoveDown()
         {
@@ -79,7 +69,6 @@ namespace WickedGame.Pages.Game
             gameService.Move(Direction.Down);
 
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
-            RemainingTime = gameService.GetRemainingTime();
             return Page();
         }
 
@@ -94,7 +83,6 @@ namespace WickedGame.Pages.Game
             }
 
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
-            RemainingTime = gameService.GetRemainingTime();
             return Page();
         }
 
@@ -109,24 +97,8 @@ namespace WickedGame.Pages.Game
             }
 
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
-            RemainingTime = gameService.GetRemainingTime();
             return Page();
 
         }
-
-        public IActionResult OnGetTime()
-        {
-            RemainingTime = gameService.GetRemainingTime();
-
-            // Send the remaining time as JSON
-            return new JsonResult(new
-            {
-                minutes = RemainingTime.Minutes,
-                seconds = RemainingTime.Seconds
-            });
-        }
-
-
-      
     }
 }
