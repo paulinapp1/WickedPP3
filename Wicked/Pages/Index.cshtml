@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    ViewData["CssFile"] = "home.css";
+}
+
+<div class="content">
+    <div class="title">
+        <p>
+            Step into the Oz world and be a part of the untold story.
+            Play as Elphaba, the bold rebel, or Glinda, the charming star.
+            Explore the magical map, collect allies, and shape your destiny.
+            Will you become the Wicked Witch of the West or the Good Witch of the North?
+        </p>
+    </div>
+</div>
+<div class="content">
+    <div class="next">
+        <div class="learn-more">
+            <a asp-area="" asp-page="/Info">Learn more about the game</a>
+        </div>
+        <div class="choose-character">
+            <a asp-area="" asp-page="/Characters">Choose your character</a>
+        </div>
+    </div>
+</div>

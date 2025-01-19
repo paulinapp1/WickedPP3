@@ -1,0 +1,80 @@
+﻿@page
+@model WickedGame.Pages.Game.GameModel
+@{
+    ViewData["Title"] = "Game";
+    ViewData["CssFile"] = "mapGlinda.css";
+}
+
+<div class="map-container">
+    <h2>Game Map</h2>
+     <div id="timeRemainingDisplay"></div>
+
+
+    <div class="grid">
+        @foreach (var row in Model.MapGrid)
+        {
+        <div>
+                @foreach (var cell in row)
+                {
+                    <div class="@(cell)">
+                        
+                        @if (cell == "creature")
+                        {
+                            <img src="~/Images/Rabbit.jpg" alt="Creature" />
+                        }
+                        else if (cell == "mainC")
+                        {
+                            <img src="~/Images/Glinda.png" alt="Glinda" />
+                        }
+                        else if (cell == "tree")
+                        {
+                            <img src="~/Images/Tree.jpg" alt="Tree" />
+                        }
+                    </div>
+                }
+          </div>
+        }
+    </div>
+    <div>
+    <form id="moveDownForm" method="post" asp-page-handler="MoveDown">
+     <button type="submit">Move Down</button>
+    </form>
+    <form id="moveUpForm" method="post" asp-page-handler="MoveUp">
+    <button type="submit">Move uP</button>
+    </form>
+    <form id="moveLeftForm" method="post" asp-page-handler="MoveLeft">
+    <button type="submit">Move Left</button>
+    </form>
+    <form id="moveRightForm" method="post" asp-page-handler="MoveRight">
+    <button type="submit">Move Right</button>
+    </form>
+</div>
+</div>
+<script>
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "ArrowDown") {
+            document.getElementById("moveDownForm").submit();
+        } else if (event.key === "ArrowUp") {
+            document.getElementById("moveUpForm").submit();
+        } else if (event.key === "ArrowLeft") {
+            document.getElementById("moveLeftForm").submit();
+        } else if (event.key === "ArrowRight") {
+            document.getElementById("moveRightForm").submit();
+        }
+        event.preventDefault();
+    });
+     function updateTime() {
+ 
+        fetch('Game/Game/GetTime') 
+            .then(response => response.json()) 
+            .then(data => {
+                document.getElementById('timeRemainingDisplay').innerText = `${data.minutes} minutes ${data.seconds} seconds`;
+            })
+            .catch(error => console.error('Error fetching remaining time:', error));
+    }
+
+    setInterval(updateTime, 1000);
+</script>
+
