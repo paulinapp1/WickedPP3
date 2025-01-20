@@ -13,7 +13,7 @@
 
         public Direction currentDirection { get; set; }
 
-        public int Score => throw new NotImplementedException();
+        public int Score => mainBody.Count()-1;
 
         public Level difficultyLevel;
         private bool isGameOver;
@@ -62,16 +62,7 @@
             }
         }
 
-        private void UpdateMap()
-        {
-            Point newCreaturePosition = Point.GeneratePoint(map);
-            while (TakenSpots.ContainsKey(newCreaturePosition))
-            {
-                newCreaturePosition = Point.GeneratePoint(map);
-            }
-            TakenSpots[newCreaturePosition] = "creature";
-        }
-
+      
 
         private bool IsCollisionWithTree(Point position) =>
             TakenSpots.ContainsKey(position) && TakenSpots[position] == "tree";
@@ -102,24 +93,7 @@
             }
             return false;
         }
-        private void UpdateVisuals()
-        {
-
-
-            for (int i = 0; i < mainBody.Count; i++)
-            {
-                var segment = mainBody[i];
-
-                if (i == mainBody.Count - 1)
-                {
-                    TakenSpots[segment] = "mainC";
-                }
-                else
-                {
-                    TakenSpots[segment] = "follower";
-                }
-            }
-        }
+       
         private void UpdateGameState(Point newHead)
         {
             mainBody.Add(newHead);
@@ -127,7 +101,7 @@
             if (HasGainedFollower())
             {
                 TakenSpots[newHead] = "creature";
-                UpdateMap();
+                MapManager.UpdateMap(TakenSpots, map);
             }
             else
             {
@@ -137,7 +111,7 @@
                 mainBody.RemoveAt(0);
             }
 
-            UpdateVisuals();
+            MapManager.UpdateVisuals(TakenSpots,mainBody);
         }
         public void Move(Direction newDirection)
         {
@@ -157,7 +131,18 @@
             }
 
             UpdateGameState(newHead);
-        }  
+        }
+        public  void InitializeMap(Levels difficulty)
+        {
+            map = difficulty switch
+            {
+                Levels.Easy => new Map(20, 20),
+                Levels.Medium => new Map(15, 15),
+                Levels.Hard => new Map(10, 10),
+                Levels.Extreme => new Map(5, 5),
+                _ => new Map(15, 15)
+            };
+        }
 
         public void StartGame(Levels difficulty)
         {
@@ -172,17 +157,6 @@
             TakenSpots[currentHead] = "mainC";
         }
 
-        private void InitializeMap(Levels difficulty)
-        {
-            map = difficulty switch
-            {
-                Levels.Easy => new Map(20, 20),
-                Levels.Medium => new Map(15, 15),
-                Levels.Hard => new Map(10, 10),
-                Levels.Extreme => new Map(5, 5),
-                _ => new Map(15, 15)
-            };
-            Console.WriteLine(map.ToString());
-        }
+       
     }
 }

@@ -19,5 +19,33 @@ namespace WickedLogic
                 }
             }
         }
+        public static void UpdateMap(Dictionary<Point, string> takenSpots, Map map)
+        {
+            Point newCreaturePosition = Point.GeneratePoint(map);
+            while (takenSpots.ContainsKey(newCreaturePosition))
+            {
+                newCreaturePosition = Point.GeneratePoint(map);
+            }
+            takenSpots[newCreaturePosition] = "creature";
+        }
+        public static void UpdateVisuals(Dictionary<Point,string> takenSpots, List<Point> mainBody)
+        {
+
+
+            for (int i = 0; i < mainBody.Count; i++)
+            {
+                var segment = mainBody[i];
+
+                if (i == mainBody.Count - 1)
+                {
+                    takenSpots[segment] = "mainC";
+                }
+                else
+                {
+                    takenSpots[segment] = "follower";
+                }
+            }
+        }
+      
     }
 }

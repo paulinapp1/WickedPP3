@@ -10,7 +10,7 @@ namespace WickedGame.Pages.Game
     {
         private readonly GameService gameService;
         public List<List<string>> MapGrid { get; private set; }
-        public TimeSpan RemainingTime { get; private set; }
+        public int score;
         [BindProperty]
         public Levels SelectedDifficulty { get; set; }
 
@@ -49,7 +49,7 @@ namespace WickedGame.Pages.Game
        
                 if (gameService.IsGameOver())
                 {
-                    Console.WriteLine("Game Over!");
+                    
                     return RedirectToPage("/GameOver");
                 }
 
@@ -63,7 +63,7 @@ namespace WickedGame.Pages.Game
     
             if (gameService.IsGameOver())
             {
-                Console.WriteLine("Game Over!");
+                score = gameService.Score;
                 return RedirectToPage("/GameOver");
             }
             gameService.Move(Direction.Down);
@@ -78,7 +78,7 @@ namespace WickedGame.Pages.Game
           
             if (gameService.IsGameOver())
             {
-                Console.WriteLine("Game Over!");
+                score = gameService.Score;
                 return RedirectToPage("/GameOver");
             }
 
@@ -92,7 +92,7 @@ namespace WickedGame.Pages.Game
 
             if (gameService.IsGameOver())
             {
-                Console.WriteLine("Game Over!");
+                score = gameService.Score;
                 return RedirectToPage("/GameOver");
             }
 

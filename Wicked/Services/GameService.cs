@@ -7,6 +7,9 @@ namespace WickedGame.Services
     {
         public Level level;
         private GameInstance gameInstance;
+
+        public int Score => gameInstance.Score;
+
         public void Initialize(Levels difficulty)
         {
             var level = Level.GetLevel(difficulty);
@@ -67,6 +70,6 @@ namespace WickedGame.Services
 
         }
 
-        public int Score => gameInstance.mainBody.Count;
+        
     }
 }
