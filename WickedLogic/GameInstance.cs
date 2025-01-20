@@ -132,21 +132,10 @@
 
             UpdateGameState(newHead);
         }
-        public  void InitializeMap(Levels difficulty)
-        {
-            map = difficulty switch
-            {
-                Levels.Easy => new Map(20, 20),
-                Levels.Medium => new Map(15, 15),
-                Levels.Hard => new Map(10, 10),
-                Levels.Extreme => new Map(5, 5),
-                _ => new Map(15, 15)
-            };
-        }
 
         public void StartGame(Levels difficulty)
         {
-            InitializeMap(difficulty);
+            map = MapManager.InitializeMap(difficulty);
             InitializeInterrupts();
         }
 

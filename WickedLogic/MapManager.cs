@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WickedLogic
 {
-    public class MapManager
+    public static class MapManager
     {
         public static void GenerateInterrupts(Dictionary<Point, string> takenSpots, Map map, string interruptType, int count)
         {
@@ -47,5 +47,17 @@ namespace WickedLogic
             }
         }
       
+        public static Map InitializeMap(Levels difficulty)
+        {
+            Map map = difficulty switch
+            {
+                Levels.Easy => new Map(20, 20),
+                Levels.Medium => new Map(15, 15),
+                Levels.Hard => new Map(10, 10),
+                Levels.Extreme => new Map(5, 5),
+                _ => new Map(15, 15)
+            };
+            return map;
+        }
     }
 }
