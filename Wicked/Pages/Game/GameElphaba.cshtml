@@ -6,22 +6,27 @@
 }
 
 <div class="map-container">
-    <div id="timeRemainingDisplay"></div>
     <div class="buttons">
-        <form id="moveUpForm" method="post" asp-page-handler="MoveUp">
-            <button type="submit">Move uP</button>
-        </form>
-        <form id="moveDownForm" method="post" asp-page-handler="MoveDown">
-            <button type="submit">Move Down</button>
-        </form>
-        <form id="moveLeftForm" method="post" asp-page-handler="MoveLeft">
-            <button type="submit">Move Left</button>
-        </form>
-        <form id="moveRightForm" method="post" asp-page-handler="MoveRight">
-            <button type="submit">Move Right</button>
-        </form>
+        <div class="upButton">
+            <form id="moveUpForm" method="post" asp-page-handler="MoveUp">
+                <button type="submit">↑</button>
+            </form>
+        </div>
+        <div class="restButtons">
+            <form id="moveLeftForm" method="post" asp-page-handler="MoveLeft">
+                <button type="submit">←</button>
+            </form>
+            <form id="moveDownForm" method="post" asp-page-handler="MoveDown">
+                <button type="submit">↓</button>
+            </form>
+            <form id="moveRightForm" method="post" asp-page-handler="MoveRight">
+                <button type="submit">→</button>
+            </form>
+        </div>
+        <div>
+            <p>Your score is @Model.CurrentScore</p>
+        </div>
     </div>
-    <h2>Your score is @Model.CurrentScore</h2>
     <div class="grid-container">
         <div class="grid">
             @foreach (var row in Model.MapGrid)

@@ -37,23 +37,14 @@
     width: 40px;
 }
 
-.tree img, .follower img, .creature img, .mainC img {
-    width: auto;
-    height: 40px;
-}
+    .tree img, .follower img, .creature img, .mainC img {
+        width: auto;
+        height: 40px;
+    }
 
 .grid > div {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    float: left;
-    width: 25%;
     align-items: center;
 }
 
@@ -63,12 +54,28 @@
     width: 70%;
 }
 
-.buttons button {
-    text-align: center;
-    padding: 30px;
-    width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor:pointer;
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    float: left;
+    margin-top: 10%;
+    margin-left: 5%;
+    font-size: 50px;
+}
+
+.restButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+button {
+    min-width: 4rem;
+    min-height: 3rem;
+    font-size: 1.6rem;
+}
+
+.buttons p {
+    font-size: 1.3rem;
 }
