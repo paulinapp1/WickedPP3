@@ -12,9 +12,9 @@
         public Point currentHead { get; set; }
 
         public Direction currentDirection { get; set; }
-
+      
         public int Score => mainBody.Count()-1;
-
+        public int CurrentScore;
         public Level difficultyLevel;
         private bool isGameOver;
 
@@ -26,57 +26,10 @@
             currentHead = new Point(3, 4);
             mainBody.Add(currentHead);
             TakenSpots[currentHead] = "mainC";
-            currentDirection = Direction.Up;
             difficultyLevel = level;
         }
 
-        private bool HasGainedFollower()
-        { 
-
-            return TakenSpots.ContainsKey(currentHead) && TakenSpots[currentHead] == "creature";
-        }
-
-        private Point GetNextHeadPosition()
-        {
-            return currentDirection switch
-            {
-                Direction.Up => new Point(currentHead.X, currentHead.Y - 1),
-                Direction.Down => new Point(currentHead.X, currentHead.Y + 1),
-                Direction.Right => new Point(currentHead.X + 1, currentHead.Y),
-                Direction.Left => new Point(currentHead.X - 1, currentHead.Y),
-                _ => currentHead
-            };
-        }
-
-
-        public void ChangeDirection(Direction newDirection)
-        {
-
-            if (mainBody.Count == 1 || (currentDirection != newDirection &&
-                !((currentDirection == Direction.Up && newDirection == Direction.Down) ||
-                  (currentDirection == Direction.Left && newDirection == Direction.Right) ||
-                  (currentDirection == Direction.Down && newDirection == Direction.Up) ||
-                  (currentDirection == Direction.Right && newDirection == Direction.Left))))
-            {
-                currentDirection = newDirection;
-            }
-        }
-
-      
-
-        private bool IsCollisionWithTree(Point position) =>
-            TakenSpots.ContainsKey(position) && TakenSpots[position] == "tree";
-        private bool IsCoordinateMinus(Point position) => position.X < 0 || position.Y < 0;
-
-        private bool IsCollisionWithBody(Point position) =>
-            TakenSpots.ContainsKey(position) && TakenSpots[position] == "mainC" || 
-            TakenSpots.ContainsKey(position) && TakenSpots[position] == "follower";
-
-
-        private bool IsCollisionWithWall(Point position) =>
-            position.X < 0 || position.X >= map.SizeX ||
-            position.Y < 0 || position.Y >= map.SizeY;
-
+        
 
         public bool IsGameOver()
         {
@@ -85,8 +38,8 @@
 
         private bool CheckCollisions()
         {
-            if (IsCollisionWithTree(currentHead) || IsCollisionWithWall(currentHead) || 
-                IsCollisionWithBody(currentHead) || IsCoordinateMinus(currentHead))
+            if (GameManager.IsCollisionWithTree(currentHead, TakenSpots) || GameManager.IsCollisionWithWall(currentHead, map) || 
+                GameManager.IsCollisionWithBody(currentHead, TakenSpots) || GameManager.IsCoordinateMinus(currentHead))
             {
                 isGameOver = true;
                 return true;
@@ -98,10 +51,11 @@
         {
             mainBody.Add(newHead);
 
-            if (HasGainedFollower())
+            if (GameManager.HasGainedFollower(TakenSpots,currentHead))
             {
                 TakenSpots[newHead] = "creature";
                 MapManager.UpdateMap(TakenSpots, map);
+                CurrentScore++;
             }
             else
             {
@@ -117,9 +71,9 @@
         {
             if (isGameOver) return;
 
-            ChangeDirection(newDirection);
+            currentDirection= GameManager.ChangeDirection(newDirection, currentDirection, mainBody);
 
-            Point newHead = GetNextHeadPosition();
+            Point newHead = GameManager.GetNextHeadPosition(currentDirection, currentHead);
             Console.WriteLine($"New head position: {newHead}");
             currentHead = newHead;
 
@@ -136,13 +90,28 @@
         public void StartGame(Levels difficulty)
         {
             map = MapManager.InitializeMap(difficulty);
-            InitializeInterrupts();
+            InitializeInterrupts(difficulty);
         }
 
-        public void InitializeInterrupts()
+        public void InitializeInterrupts(Levels difficulty)
         {
-            MapManager.GenerateInterrupts(TakenSpots, map, "creature", 5);
-            MapManager.GenerateInterrupts(TakenSpots, map, "tree", 3);
+            if(difficulty == Levels.Easy)
+            {
+                MapManager.GenerateInterrupts(TakenSpots, map, "creature", 5);
+                MapManager.GenerateInterrupts(TakenSpots, map, "tree", 6);
+            }
+            else if (difficulty == Levels.Medium)
+            {
+                MapManager.GenerateInterrupts(TakenSpots, map, "creature", 5);
+                MapManager.GenerateInterrupts(TakenSpots, map, "tree", 4);
+            }
+            else
+            {
+                MapManager.GenerateInterrupts(TakenSpots, map, "creature", 3);
+                MapManager.GenerateInterrupts(TakenSpots, map, "tree", 3);
+            }
+
+            
             TakenSpots[currentHead] = "mainC";
         }
 

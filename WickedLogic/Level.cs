@@ -4,7 +4,6 @@ namespace WickedLogic
     public class Level
     {
         public Levels Difficulty { get; set; }
-        public int Speed { get; set; }
         public Level(Levels difficulty = Levels.Medium)
         {
             Difficulty = difficulty;

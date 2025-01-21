@@ -46,7 +46,40 @@ namespace WickedLogic
                 }
             }
         }
-      
+        public static List<List<string>> GetMapGrid(Dictionary<Point, string> takenSpots,Levels selectedDifficulty, Map map)
+        {
+            var grid = new List<List<string>>();
+
+            for (int y = 0; y < map.SizeY; y++)
+            {
+                Console.WriteLine(map.SizeY);
+                var row = new List<string>();
+                for (int x = 0; x < map.SizeX; x++)
+                {
+                    Console.WriteLine(map.SizeX);
+                    var point = new Point(x, y);
+
+                    if (takenSpots.TryGetValue(point, out string value))
+                    {
+                        row.Add(value);
+                    }
+                    else
+                    {
+                        row.Add("empty");
+                    }
+                }
+                grid.Add(row);
+            }
+
+            Console.WriteLine("Generated MapGrid:");
+            foreach (var row in grid)
+            {
+                Console.WriteLine(string.Join(", ", row));
+            }
+
+            return grid;
+
+        }
         public static Map InitializeMap(Levels difficulty)
         {
             Map map = difficulty switch

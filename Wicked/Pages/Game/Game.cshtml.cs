@@ -11,6 +11,7 @@ namespace WickedGame.Pages.Game
         private readonly GameService gameService;
         public List<List<string>> MapGrid { get; private set; }
         public int score;
+        public int CurrentScore;
         [BindProperty]
         public Levels SelectedDifficulty { get; set; }
 
@@ -53,7 +54,8 @@ namespace WickedGame.Pages.Game
                     return RedirectToPage("/GameOver");
                 }
 
-                 MapGrid = gameService.GetMapGrid(SelectedDifficulty);
+            CurrentScore = gameService.Score;
+            MapGrid = gameService.GetMapGrid(SelectedDifficulty);
                  return Page();
             }
 
@@ -67,7 +69,7 @@ namespace WickedGame.Pages.Game
                 return RedirectToPage("/GameOver");
             }
             gameService.Move(Direction.Down);
-
+            CurrentScore = gameService.CurrentScore;
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
             return Page();
         }
@@ -81,7 +83,7 @@ namespace WickedGame.Pages.Game
                 score = gameService.Score;
                 return RedirectToPage("/GameOver");
             }
-
+            CurrentScore = gameService.Score;
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
             return Page();
         }
@@ -95,7 +97,7 @@ namespace WickedGame.Pages.Game
                 score = gameService.Score;
                 return RedirectToPage("/GameOver");
             }
-
+            CurrentScore = gameService.Score;
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
             return Page();
 

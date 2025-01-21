@@ -8,11 +8,12 @@ namespace WickedLogic
 {
     public interface IGameInstance
     {
-        void InitializeInterrupts();
+        void InitializeInterrupts(Levels difficulty);
         void StartGame(Levels difficulty);
         bool IsGameOver();
         void Move(Direction direction);
         int Score { get; }
+      
     }
 
 }

@@ -3,13 +3,13 @@ using WickedLogic;
 
 namespace WickedGame.Services
 {
-    public class GameService: IGameService
+    public class GameService
     {
         public Level level;
         private GameInstance gameInstance;
 
         public int Score => gameInstance.Score;
-
+        public int CurrentScore => gameInstance.CurrentScore;
         public void Initialize(Levels difficulty)
         {
             var level = Level.GetLevel(difficulty);
@@ -33,6 +33,7 @@ namespace WickedGame.Services
         {
             
             gameInstance.Move(direction);
+         
         }
 
         public List<List<string>> GetMapGrid(Levels selectedDifficulty)
