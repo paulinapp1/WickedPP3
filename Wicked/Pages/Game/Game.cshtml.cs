@@ -30,12 +30,7 @@ namespace WickedGame.Pages.Game
 
         public void OnGet()
         {
-            LoadMapGrid();
-        }
 
-        // Method to load the map grid based on the selected difficulty
-        private void LoadMapGrid()
-        {
             MapGrid = gameService.GetMapGrid(SelectedDifficulty);
             Console.WriteLine("Map grid from Game.cs:");
             foreach (var row in MapGrid)
@@ -43,6 +38,8 @@ namespace WickedGame.Pages.Game
                 Console.WriteLine(string.Join(", ", row));
             }
         }
+
+     
  
         public IActionResult OnPostMoveUp()
             {

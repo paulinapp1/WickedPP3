@@ -10,11 +10,7 @@ namespace WickedGame.Services
 
         public int Score => gameInstance.Score;
         public int CurrentScore => gameInstance.CurrentScore;
-        public void Initialize(Levels difficulty)
-        {
-            var level = Level.GetLevel(difficulty);
-            gameInstance = new GameInstance(level);
-        }
+      
         public void StartGame(Levels difficulty)
         {
             Console.WriteLine($"Starting game with difficulty: {difficulty}");
