@@ -1,4 +1,6 @@
-﻿using System.Reflection.Emit;
+﻿using MongoDB.Driver;
+using System.Reflection.Emit;
+using Wicked.Services;
 using WickedLogic;
 
 namespace WickedGame.Services
@@ -7,9 +9,29 @@ namespace WickedGame.Services
     {
         public Level level;
         private GameInstance gameInstance;
+        private readonly IMongoCollection<WickedScores> wickedScores;
+        public GameService(IMongoClient mongoClient)
+        {
+            var database = mongoClient.GetDatabase("WickedGame");
+            wickedScores = database.GetCollection<WickedScores>("WickedScores");
+        }
 
         public int Score => gameInstance.Score;
         public int CurrentScore => gameInstance.CurrentScore;
+        public async Task SaveScoreAsync(string name, int score)
+        {
+            var newScore = new WickedScores
+            {
+                Score = score,
+                Name = name
+            };
+            await wickedScores.InsertOneAsync(newScore);
+            Console.WriteLine($"Saving score for {name} with score {Score}");
+        }
+        public async Task<List<WickedScores>> GetTopScores(int limit = 10)
+        {
+            return await wickedScores.Find(_ => true).SortByDescending(x => x.Score).Limit(limit).ToListAsync();
+        }
       
         public void StartGame(Levels difficulty)
         {

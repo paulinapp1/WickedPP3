@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicked", "Wicked\Wicked.csproj", "{1058BD0E-AA20-457D-B63D-3B26E7CC24A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wicked", "Wicked\Wicked.csproj", "{1058BD0E-AA20-457D-B63D-3B26E7CC24A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WickedLogic", "WickedLogic\WickedLogic.csproj", "{21D2AA55-954F-4F12-8ACA-23758EA74F77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WickedLogic", "WickedLogic\WickedLogic.csproj", "{21D2AA55-954F-4F12-8ACA-23758EA74F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
