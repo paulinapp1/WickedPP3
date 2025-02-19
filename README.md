@@ -19,7 +19,7 @@ Before beginning, ensure that the following dependencies are installed on your m
 
 - [.NET SDK](https://dotnet.microsoft.com/download) (version 6.0 or later)
 - [Visual Studio](https://visualstudio.microsoft.com/) (or any code editor such as Visual Studio Code)
-- [MongoDB](https://www.mongodb.com/try/download/community) (if used for the database)
+- [MongoDB](https://www.mongodb.com/try/download/community) 
 
 ---
 
