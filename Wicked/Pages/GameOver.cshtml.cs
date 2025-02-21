@@ -33,9 +33,9 @@ namespace WickedGame.Pages
                 var scoreData = new
                 {
                     Name = Name,
-                    Score= Score
+                    Score= gameService.Score
                 };
-                Console.WriteLine($"Submitting score: {Score} for {Name}");
+                Console.WriteLine($"Submitting score: {gameService.Score} for {Name}");
                 var jsonContent = new StringContent(JsonSerializer.Serialize(scoreData), Encoding.UTF8, "application/json");
                 var httpClient = HttpClientFactory.CreateClient();
 
