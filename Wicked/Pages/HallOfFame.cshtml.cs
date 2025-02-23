@@ -21,16 +21,20 @@ namespace Wicked.Pages
         public async Task OnGetAsync()
         {
             var httpClient = httpClientFactory.CreateClient();
-            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7013/api/scores/getScore?limit=5");
+            HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7013/api/scores/getScore");
 
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                TopScores = JsonSerializer.Deserialize<List<WickedScores>>(json);
+                TopScores = JsonSerializer.Deserialize<List<WickedScores>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
             }
             else
             {
                 TopScores = new List<WickedScores>();
+                Console.WriteLine(TopScores);
             }
         }
     }

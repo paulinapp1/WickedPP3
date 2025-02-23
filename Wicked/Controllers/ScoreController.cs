@@ -22,7 +22,7 @@ namespace Wicked.Controllers
             return Ok("Score saved successfully.");
         }
         [HttpGet("getScore")]
-        public async Task<ActionResult> GetTopScores(int limit=1)
+        public async Task<ActionResult> GetTopScores(int limit=10)
         {
             var topScores= await gameService.GetTopScores(limit);
             return Ok(topScores);
